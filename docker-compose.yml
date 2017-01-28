@@ -1,0 +1,20 @@
+version: '2'
+services:
+  app:
+    image: roquie/simplex-app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9000"
+    volumes:
+      - ./app/:/app/
+  nginx:
+    image: roquie/simplex-nginx
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+    ports:
+      - "8888:80"
